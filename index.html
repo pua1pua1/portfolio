@@ -13,76 +13,113 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/700-italic.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/caveat-brush@5/400.css">
 <style>
-:root{--ff:Poppins,"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ink:#10265e;--blue:#2f8cff;--pink:#ff5d8f;--card:rgba(255,255,255,.88);--muted:#5d6b8a;--bg:#e8f3ff}
+:root{--ff:Poppins,"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ink:#12275f;--blue:#2f8cff;--pink:#ff4f8b;--card:rgba(255,255,255,.9);--muted:#66769a;--bg:#e8f3ff}
 *{box-sizing:border-box;margin:0}
-body{font-family:var(--ff);color:var(--ink);background:linear-gradient(#bfe0ff,#eaf5ff 40%,#d6ebff);min-height:100vh}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:var(--ff);color:var(--ink);background:#e9f4fd;min-height:100vh;overflow-x:hidden}
 body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-nav{display:flex;align-items:center;gap:22px;padding:18px 0;font-size:14px;flex-wrap:wrap}
-nav b{font-size:20px;font-style:italic;font-weight:700;margin-inline-end:auto}
-nav a.on{color:var(--blue);border-bottom:2px solid var(--blue)}
-.hero{position:relative;padding:20px 0 30px}
-.hero h1{display:inline-block;font-size:clamp(34px,7vw,64px);line-height:1.12;font-weight:900;letter-spacing:-.01em}
-.hero h1::after{content:"";display:block;width:62%;height:9px;margin-top:2px;border-radius:99px;background:linear-gradient(90deg,#ff5d8f,#ff9ec1);transform:rotate(-1.2deg);opacity:.85}
-.hero h2{color:var(--blue);font-size:clamp(20px,3.6vw,32px);font-weight:800;letter-spacing:.01em;text-transform:uppercase;margin:6px 0 18px}
-.hero p{font-size:clamp(18px,3vw,26px);font-weight:700}.hero small{color:var(--muted)}
-.hero .kid{position:absolute;right:-16px;top:0;width:clamp(190px,42vw,460px);z-index:0;-webkit-mask-image:linear-gradient(to right,transparent,#000 30%),linear-gradient(to bottom,#000 70%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 30%),linear-gradient(to bottom,#000 70%,transparent);mask-composite:intersect}
-.hero>*:not(.kid){position:relative;z-index:1}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.chips a{position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;background:#fff;padding:8px 14px 8px 8px;border-radius:99px;font-weight:600;box-shadow:0 4px 14px #5aa0ff22;transition:transform .2s,box-shadow .2s;animation:glow 3s ease-in-out infinite;animation-delay:calc(var(--i)*.3s);-webkit-tap-highlight-color:transparent}
-.chips a::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffffcc,transparent);transform:skewX(-20deg);animation:shine 4s ease-in-out infinite;animation-delay:calc(var(--i)*.45s);pointer-events:none}
-.chips a:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 10px 26px #2f8cff55;animation-play-state:paused}
-.chips a:active{transform:scale(.96)}
-.go{font-style:normal;font-weight:900;color:var(--blue);--d:1;animation:nudge 1.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
-.go::before{content:"›";font-size:20px}
-html[dir=rtl] .go{--d:-1}html[dir=rtl] .go::before{content:"‹"}
-.hint{display:flex;align-items:center;gap:8px;margin-top:22px;font-size:14px;font-weight:700;color:var(--blue)}
+button{font-family:inherit}
+/* ===== 固定 1024px 设计稿，整体等比缩放：手机/电脑效果完全一致 ===== */
+#fit{margin:0 auto;overflow:hidden;visibility:hidden;position:relative;direction:ltr}
+#fit.wide{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
+#stage{width:1024px;transform-origin:0 0;position:relative;direction:ltr;background:linear-gradient(#f1f7fd,#e8f3fd 40%,#eef6fe 85%,#f4f9fd)}
+#stage [data-i18n],#stage [data-i18n-html]{unicode-bidi:plaintext}
+/* hero */
+.hero{position:relative;height:490px}
+.hero::before{content:"";position:absolute;left:0;top:0;width:1024px;height:492px;background:url(images/hero-bg.jpg) 0 0/1024px 492px no-repeat;-webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
+.hero>*{position:absolute}
+nav{left:0;top:30px;width:1024px;height:36px;font-size:15px;font-weight:500}
+nav b{position:absolute;left:58px;top:1px;font-size:22px;font-style:italic;font-weight:700;letter-spacing:-.2px;white-space:nowrap}
+nav b svg{position:absolute;left:100%;top:-6px;margin-left:3px;width:18px;height:18px;fill:none;stroke:#ff4f8b;stroke-width:2;stroke-linecap:round}
+nav .links{position:absolute;left:273px;top:7px;display:flex;gap:26px;white-space:nowrap}
+nav .links a.on{color:var(--blue);border-bottom:2px solid var(--blue);padding-bottom:3px}
+.lang{position:absolute;left:600px;top:0}
+.htxt{left:62px;top:118px;width:520px}
+.htxt h1{position:relative;display:inline-block;font-size:62px;line-height:70px;font-weight:900;letter-spacing:-.01em}
+.htxt h2{position:relative;color:var(--blue);font-size:28px;line-height:34px;font-weight:800;text-transform:uppercase;margin-top:5px;letter-spacing:.005em}
+.htxt p{font-size:26px;line-height:34px;font-weight:800;margin-top:22px}
+.htxt small{display:block;font-size:14.5px;line-height:20px;color:var(--muted);margin-top:4px}
+html:lang(ja) .htxt h1,html:lang(ko) .htxt h1{font-size:52px}
+html:not(:lang(zh)):not(:lang(ja)):not(:lang(ko)) .htxt h1{font-size:44px;line-height:50px;font-weight:800}
+html:not(:lang(zh)):not(:lang(ja)):not(:lang(ko)) .htxt p{font-size:22px;margin-top:20px}
+html:not(:lang(zh)):not(:lang(ja)):not(:lang(ko)) .sub,html:not(:lang(zh)):not(:lang(ja)):not(:lang(ko)) .htxt h2{display:none}
+.hint{left:62px;top:313px;display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:var(--blue)}
 .hint b{display:inline-block;animation:bob 1.2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(5px)}}
-@keyframes nudge{50%{transform:translateX(calc(4px*var(--d)))}}
-@keyframes glow{0%,100%{box-shadow:0 4px 14px #5aa0ff22}50%{box-shadow:0 6px 22px #2f8cff66}}
+.crow{left:0;width:1024px;display:flex;justify-content:center;gap:21px;padding-right:25px}
+.r1{top:341px}.r2{top:415px}
+.chip{position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;height:57px;padding:0 10px 0 21px;border-radius:99px;background:#fff;font-size:21px;font-weight:600;white-space:nowrap;box-shadow:0 6px 20px rgba(80,150,255,.16);animation:glow 3s ease-in-out infinite;animation-delay:calc(var(--i)*.3s);transition:transform .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
+.chip img{width:50px;height:50px;flex:none}
+.chip::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffffcc,transparent);transform:skewX(-20deg);animation:shine 4s ease-in-out infinite;animation-delay:calc(var(--i)*.45s);pointer-events:none}
+.chip:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 28px rgba(47,140,255,.35);animation-play-state:paused}
+.chip:active{transform:scale(.96)}
+.go{font-style:normal;font-weight:900;color:var(--blue);animation:nudge 1.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+.go::before{content:"›";font-size:24px;line-height:1}
+@keyframes bob{50%{transform:translateY(4px)}}
+@keyframes nudge{50%{transform:translateX(4px)}}
+@keyframes glow{0%,100%{box-shadow:0 6px 20px rgba(80,150,255,.16)}50%{box-shadow:0 8px 26px rgba(47,140,255,.42)}}
 @keyframes shine{0%,55%{left:-70%}100%{left:140%}}
 @keyframes ring{0%{box-shadow:0 0 0 0 var(--g)}70%{box-shadow:0 0 0 14px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.moreBtn{display:block;margin:6px auto 2px;border:2px solid var(--blue);background:#fff;color:var(--blue);font:700 15px var(--ff);padding:11px 28px;border-radius:99px;cursor:pointer;transition:.2s}
-.moreBtn[hidden]{display:none}
-.moreBtn:hover{background:var(--blue);color:#fff}
-@media(prefers-reduced-motion:reduce){.chips a,.chips a::after,.hint b,.go,.cta a{animation:none!important}}
-.chips i{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-style:normal;font-size:16px}
-.panel{background:var(--card);border-radius:28px;padding:22px;margin:18px 0;box-shadow:0 8px 30px #5aa0ff22}
-.head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.head h3{font-size:24px;font-weight:800}.head small{display:block;color:var(--muted);font-size:14px;font-weight:400}
-.tabs{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
-.tabs button{border:0;background:#eaf3ff;color:var(--ink);padding:7px 16px;border-radius:99px;font-size:14px;cursor:pointer}
-.tabs button.on{background:var(--blue);color:#fff}
-/* ===== 瀑布流 ===== */
+/* panels */
+.panel{position:relative;margin:0 26px;background:var(--card);border-radius:28px;box-shadow:0 10px 36px rgba(90,160,255,.12)}
+.works{padding:27px 21px 21px 22px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;min-height:68px;gap:20px}
+.head .tt{position:relative;padding-left:47px}
+.head .tt::before{content:"";position:absolute;left:0;top:0;width:32px;height:32px;background:url(images/ring.png) center/contain no-repeat}
+.head h3{font-size:31px;line-height:34px;font-weight:900;margin-top:-1px}
+.head small{display:block;font-size:16px;line-height:22px;color:var(--muted);font-weight:400;margin-top:6px}
+.tabs{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;max-width:560px}
+.tabs button{border:0;background:#edf4ff;color:var(--ink);height:36px;padding:0 17px;border-radius:99px;font-size:16px;font-weight:600;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:#1f87ff;color:#fff}
 .masonry{column-count:2;column-gap:12px}
 @media(min-width:700px){.masonry{column-count:3}}
-@media(min-width:1000px){.masonry{column-count:3}}
+#grid{display:flex;gap:16px;align-items:flex-start}
+#grid .mc{flex:1;min-width:0}
 .pin{break-inside:avoid;margin-bottom:14px;cursor:pointer;display:block}
+#grid .pin{margin-bottom:17px}
 .pin .im{border-radius:18px;overflow:hidden;background:#dbe9fb;position:relative}
+#grid .pin .im{border-radius:13px}
 .pin img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
 .pin:hover img{transform:scale(1.04)}
 .pin .t{font-size:13px;padding:6px 4px 0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#grid .t{display:none}
 .pin .sv{position:absolute;right:8px;bottom:8px;width:34px;height:34px;border-radius:12px;background:#fffd;display:grid;place-items:center;opacity:0;transition:.2s}
 .pin:hover .sv{opacity:1}
-.about{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:760px){.about{grid-template-columns:1.2fr 1fr 1fr}}
-.about h4{font-size:22px;font-weight:800}.about small{color:var(--muted)}
-.ava{width:110px;height:110px;border-radius:50%;object-fit:cover;float:inline-start;margin:0 0 8px;margin-inline-end:16px}
-.about ul{list-style:none;padding:0;margin-top:12px}.about li{margin:9px 0;font-weight:600}.about li:before{content:"✔ ";color:var(--blue)}
-.sw{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.sw b{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:18px}
-.btn{display:inline-block;border:1.5px solid var(--pink);color:var(--pink);border-radius:99px;padding:6px 18px;margin-top:10px;font-size:14px}
-.cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:30px 0 50px}
-.cta h2{font-family:"Caveat Brush","Noto Sans SC",cursive;font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;color:var(--ink);flex:1 1 220px;transform:rotate(-4deg)}
-.cta h2::after{content:"";display:block;height:8px;width:70%;margin-top:6px;border-radius:99px;background:linear-gradient(90deg,#ff5d8f,#ff9ec1);transform:rotate(-2deg)}
-html[lang=zh] .cta h2,html[lang=zh-TW] .cta h2,html[lang=ja] .cta h2,html[lang=ko] .cta h2{font-family:var(--ff);font-weight:900;font-style:italic;font-size:clamp(28px,6vw,44px)}
-.cta p{flex:1 1 220px;font-size:14px;color:var(--muted)}
-.cta a{color:#fff;font-weight:700;padding:14px 24px;border-radius:99px;animation:ring 2s ease-out infinite;transition:transform .2s}
-.cta a:hover{transform:translateY(-3px)}.cta a:active{transform:scale(.96)}
-.wave{display:block;width:100%;height:96px;object-fit:cover;border-radius:24px;margin-bottom:14px;-webkit-mask-image:linear-gradient(transparent,#000 50%);mask-image:linear-gradient(transparent,#000 50%)}
-footer{text-align:center;font-size:12px;color:var(--muted);padding:0 0 30px}
+.moreBtn{display:block;margin:4px auto 0;border:2px solid var(--blue);background:#fff;color:var(--blue);font:700 16px var(--ff);padding:10px 30px;border-radius:99px;cursor:pointer;transition:.2s}
+.moreBtn[hidden]{display:none}
+.moreBtn:hover{background:var(--blue);color:#fff}
+.about{display:flex;margin-top:20px;min-height:270px;padding:25px 0 22px 12px}
+.ava{position:relative;width:205px;height:205px;flex:none;margin-right:30px}
+.ava .a{width:205px;height:205px;display:block}
+.ava .h{position:absolute;left:166px;top:4px;width:44px;mix-blend-mode:multiply}
+.col{margin-top:-8px}
+.c1{width:268px}.c2{width:189px;margin-left:31px}.c3{margin-left:30px}
+.vl{flex:none;width:1px;height:207px;background:#dde7f5}
+.col h4{font-size:26px;line-height:34px;font-weight:900}
+.col small{display:block;font-size:16px;line-height:22px;color:var(--muted);font-weight:400}
+.c1 p{font-size:15px;line-height:26.5px;margin-top:14px;color:#22335f}
+.btn{display:inline-block;margin-top:13px;border:1.5px solid var(--pink);color:var(--ink);border-radius:99px;height:37px;line-height:34px;padding:0 20px;font-size:15px;font-weight:500}
+.col ul{list-style:none;padding:0;margin-top:12px}
+.col li{position:relative;padding-left:37px;line-height:37.5px;font-size:17px;font-weight:600}
+.col li::before{content:"";position:absolute;left:0;top:8px;width:22px;height:22px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 13l5.5 5.5L21 6' fill='none' stroke='%231f87ff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.soft{display:block;width:195px;margin:12px 0 0 -8px}
+/* footer / CTA */
+.foot{position:relative;height:320px;margin-top:10px}
+.foot::before{content:"";position:absolute;inset:0;background:url(images/footer-bg.jpg) 0 0/1024px 320px no-repeat;-webkit-mask-image:linear-gradient(transparent,#000 36px);mask-image:linear-gradient(transparent,#000 36px)}
+.foot>*{position:absolute}
+.vl2{left:297px;top:66px;height:68px;width:1.5px;background:#27407a}
+.cta-p{left:325px;top:60px;width:226px;font-size:15px;line-height:25px;color:var(--ink)}
+.cta-p b{font-size:14.5px;font-weight:700;letter-spacing:-.2px}
+.cb{top:54px;height:68px;display:flex;align-items:center;gap:11px;padding:0 17px 0 15px;border-radius:34px;color:#fff;font-size:15px;font-weight:700;line-height:1.25;animation:ring 2s ease-out infinite;transition:transform .2s;-webkit-tap-highlight-color:transparent}
+.cb:hover{transform:translateY(-3px)}.cb:active{transform:scale(.96)}
+.cb img{width:48px;flex:none}
+.cb span{flex:1;min-width:0}
+.cb i{flex:none;width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:20px}
+.cb i::before{content:"→"}
+.cb1{left:555px;width:215px;background:linear-gradient(90deg,#3d9dff,#2d84f5)}
+.cb2{left:789px;width:217px;background:linear-gradient(90deg,#68d457,#45bd3b)}
+.copy{left:0;width:1024px;top:262px;text-align:center;font-size:13px;color:#22335f}
+@media(prefers-reduced-motion:reduce){.chip,.chip::after,.hint b,.go,.cb{animation:none!important}}
 /* ===== 详情页 ===== */
 #detail{position:fixed;inset:0;z-index:50;background:#fff;overflow-y:auto;overscroll-behavior:contain;transform:translateY(24px);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s .25s}
 #detail.open{transform:none;opacity:1;visibility:visible;transition:opacity .25s,transform .25s}
@@ -98,14 +135,10 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:0 0 30px}
 .more{margin:26px 0 14px;font-weight:700;font-size:18px;text-align:center}
 .lang{font-size:14px;background:#fff;border-radius:99px;padding:4px 6px 4px 12px;box-shadow:0 2px 10px #5aa0ff22}
 .lang select{border:0;background:transparent;font:inherit;color:var(--ink);padding:4px;outline:0;cursor:pointer;max-width:110px}
-html[lang=en] .sub,html[lang=en] .hero h2{display:none}
-@media(max-width:600px){.hero .kid{width:46vw;top:54px;right:-12px}.hero h1{font-size:clamp(28px,8.4vw,36px)}.hero h2{font-size:15px}.hero p{font-size:17px}}
 html[lang=zh-TW]{--ff:Poppins,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
 html[lang=ja]{--ff:Poppins,"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,system-ui,sans-serif}
 html[lang=ko]{--ff:Poppins,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
 html[dir=rtl] .back{transform:scaleX(-1)}
-html[dir=rtl] .hero .kid{right:auto;left:-16px;-webkit-mask-image:linear-gradient(to left,transparent,#000 30%),linear-gradient(to bottom,#000 70%,transparent);mask-image:linear-gradient(to left,transparent,#000 30%),linear-gradient(to bottom,#000 70%,transparent)}
-html[dir=rtl] .hero h1,html[dir=rtl] .hero h2{letter-spacing:0}
 .lang select{text-overflow:ellipsis}
 .ic{display:flex;align-items:center;gap:6px;border:0;background:transparent;color:var(--ink);padding:8px;border-radius:99px;cursor:pointer;font:600 15px var(--ff);min-width:44px;min-height:44px;justify-content:center}
 .ic svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -139,50 +172,42 @@ html[dir=rtl] .hero h1,html[dir=rtl] .hero h2{letter-spacing:0}
 </style>
 </head>
 <body>
-<div id="page">
-<div class="wrap">
-  <nav><b>Leticia Valdez</b><a class="on" href="#" data-i18n="nav1"></a><a href="#about" data-i18n="nav2"></a><a href="#about" data-i18n="nav3"></a><a href="#contact" data-i18n="nav4"></a><label class="lang">🌐 <select id="lang" aria-label="Language"></select></label></nav>
-  <section class="hero">
-    <img class="kid" src="images/hero-kid.jpg" alt="">
-    <h1 data-i18n="h1"></h1><h2>PHOTO EDITING DESIGNER</h2>
-    <p data-i18n="sub"></p><small class="sub">Technical Sharing : Portfolio Showcase</small>
-    <div class="hint"><b>👇</b><span data-i18n="hint"></span></div>
-    <div class="chips">
-      <a href="#" data-c="telegram" style="--i:0"><i style="background:#2a9df4;">✈</i>Telegram<em class="go"></em></a>
-      <a href="#" data-c="wechat" style="--i:1"><i style="background:#2dc100;">💬</i><span data-i18n="wechat"></span><em class="go"></em></a>
-      <a href="#" data-c="whatsapp" style="--i:2"><i style="background:#25d366;">☎</i>WhatsApp<em class="go"></em></a>
-      <a href="#" data-c="line" style="--i:3"><i style="background:#06c755;">L</i>Line<em class="go"></em></a>
-      <a href="#" data-c="imessage" style="--i:4"><i style="background:#34c759;">✉</i>iMessage<em class="go"></em></a>
-      <a href="#" data-c="messenger" style="--i:5"><i style="background:#7a5cff;">⚡</i>Messenger<em class="go"></em></a>
-      <a href="#" data-c="kakao" style="--i:6"><i style="background:#fee500;color:#333">K</i>KakaoTalk<em class="go"></em></a>
-    </div>
-  </section>
+<div id="fit"><div id="stage">
+ <header class="hero">
+  <nav>
+   <b>Leticia Valdez<svg viewBox="0 0 18 18"><path d="M3 3l4 3M9 1l1 5M15 6l-4 2"/></svg></b>
+   <div class="links"><a class="on" href="#" data-i18n="nav1"></a><a href="#about" data-i18n="nav2"></a><a href="#about" data-i18n="nav3"></a><a href="#contact" data-i18n="nav4"></a></div>
+   <label class="lang">🌐 <select id="lang" aria-label="Language"></select></label>
+  </nav>
+  <div class="htxt"><h1 data-i18n="h1"></h1><h2>PHOTO EDITING DESIGNER</h2><p data-i18n="sub"></p><small class="sub">Technical Sharing : Portfolio Showcase</small></div>
+  <div class="hint"><b>👇</b><span data-i18n="hint"></span></div>
+  <div class="crow r1"><a class="chip" href="#" data-c="telegram" style="--i:0"><img src="images/ic-telegram.png" alt=""><span>Telegram</span><em class="go"></em></a><a class="chip" href="#" data-c="wechat" style="--i:1"><img src="images/ic-wechat.png" alt=""><span data-i18n="wechat"></span><em class="go"></em></a><a class="chip" href="#" data-c="whatsapp" style="--i:2"><img src="images/ic-whatsapp.png" alt=""><span>WhatsApp</span><em class="go"></em></a><a class="chip" href="#" data-c="line" style="--i:3"><img src="images/ic-line.png" alt=""><span>Line</span><em class="go"></em></a></div>
+  <div class="crow r2"><a class="chip" href="#" data-c="imessage" style="--i:4"><img src="images/ic-imessage.png" alt=""><span>iMessage</span><em class="go"></em></a><a class="chip" href="#" data-c="messenger" style="--i:5"><img src="images/ic-messenger.png" alt=""><span>Messenger</span><em class="go"></em></a><a class="chip" href="#" data-c="kakao" style="--i:6"><img src="images/ic-kakao.png" alt=""><span>KakaoTalk</span><em class="go"></em></a></div>
+ </header>
 
-  <section class="panel" id="works">
-    <div class="head">
-      <h3>◉ <span data-i18n="works"></span><small class="sub">Selected Works</small></h3>
-      <div class="tabs" id="tabs"></div>
-    </div>
-    <div class="masonry" id="grid"></div>
-    <button class="moreBtn" id="moreBtn" hidden></button>
-  </section>
+ <section class="panel works" id="works">
+  <div class="head"><div class="tt"><h3 data-i18n="works"></h3><small class="sub">Selected Works</small></div><div class="tabs" id="tabs"></div></div>
+  <div class="masonry" id="grid"></div>
+  <button class="moreBtn" id="moreBtn" hidden></button>
+ </section>
 
-  <section class="panel about" id="about">
-    <div><h4 data-i18n="about"></h4><small class="sub">About Me</small><div style="margin-top:14px"><img class="ava" src="images/avatar.jpg" alt="avatar"><p style="font-size:14px;line-height:1.7" data-i18n="bio"></p></div><a class="btn" href="#" data-i18n="learn"></a></div>
-    <div><h4 data-i18n="skills"></h4><small class="sub">Skills</small><ul><li data-i18n="s1"></li><li data-i18n="s2"></li><li data-i18n="s3"></li><li data-i18n="s4"></li></ul></div>
-    <div><h4 data-i18n="soft"></h4><small class="sub">Software</small><div class="sw"><b style="background:#0b3a66">Ps</b><b style="background:#8a3b00">Ai</b><b style="background:#3b1a6b">Pr</b><b style="background:#6e0f2f">Id</b><b style="background:#3a1a7a">Ae</b><b style="background:#222">Fg</b></div></div>
-  </section>
+ <section class="panel about" id="about">
+  <div class="ava"><img class="a" src="images/avatar.png" alt="avatar"><img class="h" src="images/heart.jpg" alt=""></div>
+  <div class="col c1"><h4 data-i18n="about"></h4><small class="sub">About Me</small><p data-i18n="bio"></p><a class="btn" href="#contact" data-i18n="learn"></a></div>
+  <i class="vl"></i>
+  <div class="col c2"><h4 data-i18n="skills"></h4><small class="sub">Skills</small><ul><li data-i18n="s1"></li><li data-i18n="s2"></li><li data-i18n="s3"></li><li data-i18n="s4"></li></ul></div>
+  <i class="vl"></i>
+  <div class="col c3"><h4 data-i18n="soft"></h4><small class="sub">Software</small><img class="soft" src="images/soft.png" alt="Ps Ai Pr Id Ae Figma"></div>
+ </section>
 
-  <section class="cta" id="contact">
-    <h2 data-i18n="cta1"></h2>
-    <p data-i18n-html="cta2"></p>
-    <a href="#" data-c="telegram" style="background:#2f8cff;--g:#2f8cff99" data-i18n="ctaTg"></a>
-    <a href="#" data-c="wechat" style="background:#2dc100;--g:#2dc10099" data-i18n="ctaWc"></a>
-  </section>
-  <img class="wave" src="images/footer-wave.jpg" alt="">
-  <footer data-i18n="foot"></footer>
-</div>
-</div>
+ <section class="foot" id="contact">
+  <i class="vl2"></i>
+  <p class="cta-p" data-i18n-html="cta2"></p>
+  <a class="cb cb1" href="#" data-c="telegram" style="--g:#2f8cff99"><img src="images/g-telegram.png" alt=""><span data-i18n="ctaTg"></span><i style="color:#3a8ff7"></i></a>
+  <a class="cb cb2" href="#" data-c="wechat" style="--g:#2dc10099"><img src="images/g-wechat.png" alt=""><span data-i18n="ctaWc"></span><i style="color:#46b93c"></i></a>
+  <div class="copy" data-i18n="foot"></div>
+ </section>
+</div></div>
 
 <!-- 详情页 -->
 <div id="detail" aria-hidden="true"><div class="dwrap">
@@ -223,16 +248,16 @@ const CONTACT={
 
 /* ================= 作品数据 ================= */
 const WORKS=[
- {t:"Pink Bloom",c:"illus",h:.85,src:"images/work1.jpg"},
- {t:"Design Creative Studio",c:"brand",h:.55,src:"images/work2.jpg"},
- {t:"Paper Plane",c:"poster",h:.75,src:"images/work3.jpg"},
- {t:"Modern Architecture",c:"graphic",h:.65,src:"images/work4.jpg"},
- {t:"Color Wave",c:"illus",h:.9,src:"images/work5.jpg"},
- {t:"Pink Balloons",c:"poster",h:.6,src:"images/work6.jpg"},
- {t:"Dreamer Kid",c:"illus",h:.8,src:"images/work7.jpg"},
- {t:"Headphone Girl",c:"illus",h:1.05,src:"images/work8.jpg"},
- {t:"Wave Detail",c:"graphic",h:.7,src:"images/work9.jpg"},
- {t:"Bloom Detail",c:"poster",h:.95,src:"images/work10.jpg"}
+ {t:"Pink Bloom",c:"illus",h:0.62,src:"images/work1.jpg"},
+ {t:"Design Creative Studio",c:"brand",h:0.5,src:"images/work2.jpg"},
+ {t:"Paper Plane",c:"poster",h:0.7,src:"images/work3.jpg"},
+ {t:"Modern Architecture",c:"graphic",h:0.55,src:"images/work4.jpg"},
+ {t:"Color Wave",c:"illus",h:0.78,src:"images/work5.jpg"},
+ {t:"Pink Balloons",c:"poster",h:0.5,src:"images/work6.jpg"},
+ {t:"Dreamer Kid",c:"illus",h:0.66,src:"images/work7.jpg"},
+ {t:"Headphone Girl",c:"illus",h:0.82,src:"images/work8.jpg"},
+ {t:"Wave Detail",c:"graphic",h:0.56,src:"images/work9.jpg"},
+ {t:"Bloom Detail",c:"poster",h:0.7,src:"images/work10.jpg"}
  // 想增加作品：复制一行，改 src 为 images/你的图片.jpg 即可
 ];
 /* ================= 多语言 =================
@@ -267,7 +292,9 @@ const CATS=["all","graphic","illus","poster","brand"];
 let cat="all";
 function renderGrid(){
   const list=WORKS.filter(w=>cat==="all"||w.c===cat);
-  $("#grid").innerHTML=list.slice(0,shown).map(pin).join("");
+  const cols=[[],[],[]],hh=[0,0,0];
+  list.slice(0,shown).forEach(w=>{const i=hh.indexOf(Math.min(...hh));cols[i].push(pin(w));hh[i]+=w.h+.06});
+  $("#grid").innerHTML=cols.map(c=>'<div class="mc">'+c.join("")+'</div>').join("");
   const b=$("#moreBtn");
   if(list.length<=HOME_LIMIT){b.hidden=true;return}
   b.hidden=false;
@@ -400,7 +427,7 @@ $("#moBtn").onclick=()=>{
   const w=WORKS[cur],d=T[lang];
   openSheet(`<div class="menu"><button id="mDl">⬇&nbsp; ${esc(d.dl)}</button><button id="mOp">↗&nbsp; ${esc(d.open)}</button><button id="mCp">🔗&nbsp; ${esc(d.copy)}</button></div>`,()=>{
     $("#mDl").onclick=()=>{const a=document.createElement("a");a.href=$("#dimg").src;a.download=w.t.replace(/\s+/g,"_")+".jpg";document.body.appendChild(a);a.click();a.remove();closeSheet()};
-    $("#mOp").onclick=()=>{window.open($("#dimg").src,"_blank");closeSheet()};
+    $("#mOp").onclick=async()=>{const u=$("#dimg").src;try{if(u.startsWith("data:")){const b=await(await fetch(u)).blob();window.open(URL.createObjectURL(b),"_blank")}else window.open(u,"_blank")}catch(e){}closeSheet()};
     $("#mCp").onclick=()=>{copyText(shareUrl());closeSheet()};
   });
 };
@@ -429,8 +456,8 @@ sel.innerHTML=Object.keys(NAMES).map(k=>`<option value="${k}">${NAMES[k]}</optio
 function setLang(l,save){
   lang=l;const d=T[l];
   document.documentElement.lang=l;document.documentElement.dir=["he","ar","fa","ur"].includes(l)?"rtl":"ltr";document.title=d.title;sel.value=l;
-  document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=d[el.dataset.i18n]);
-  document.querySelectorAll("[data-i18n-html]").forEach(el=>el.innerHTML=d[el.dataset.i18nHtml]);
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;let v=d[k];if(k==="ctaTg"||k==="ctaWc")v=v.replace(/\s*→\s*$/,"");if(k==="ctaTg"||k==="ctaWc")el.innerHTML=v.replace(" ","<br>");else el.textContent=v});
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{const v=d[el.dataset.i18nHtml],i=v.indexOf("<br>");el.innerHTML=i>0?"<b>"+v.slice(0,i)+"</b><br>"+v.slice(i+4):v});
   document.querySelectorAll("[data-i18n-aria]").forEach(el=>el.setAttribute("aria-label",d[el.dataset.i18nAria]));
   renderTabs();renderGrid();loadFonts(l);
   if(isOpen)fill(cur);else refreshActs();
@@ -438,6 +465,22 @@ function setLang(l,save){
 }
 sel.onchange=()=>setLang(sel.value,true);   // 手动切换会被记住
 setLang(lang,false);                        // 首次进入：按设备语言自动选择
+
+/* ================= 等比缩放：1024px 设计稿 → 任意屏幕，效果完全一致 ================= */
+const DESIGN_W=1024, MAX_W=1280;           // MAX_W：电脑端最大显示宽度
+function fit(){
+  const box=$("#fit"),st=$("#stage"),vw=document.documentElement.clientWidth;
+  const s=Math.min(vw,MAX_W)/DESIGN_W;
+  st.style.transform="scale("+s+")";
+  box.style.width=(DESIGN_W*s)+"px";
+  box.style.height=(st.offsetHeight*s)+"px";
+  box.classList.toggle("wide",vw>MAX_W+8);
+  box.style.visibility="visible";
+}
+addEventListener("resize",fit);addEventListener("orientationchange",fit);addEventListener("load",fit);
+if(window.ResizeObserver)new ResizeObserver(fit).observe($("#stage"));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+fit();
 // 打开分享链接（#work-编号）时，直接进入对应作品详情；点返回回到首页
 (function(){const m=location.hash.match(/^#work-(\d+)$/);
   if(m&&WORKS[+m[1]]){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}openDetail(+m[1]);}})();
