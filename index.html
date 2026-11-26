@@ -21,7 +21,7 @@ body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
 /* ===== 固定 1024px 设计稿，整体等比缩放：手机/电脑效果完全一致 ===== */
-#fit{margin:0 auto;overflow:hidden;visibility:hidden;position:relative;direction:ltr}
+#fit{margin:0 auto;overflow:clip;visibility:hidden;position:relative;direction:ltr}
 #fit.wide{-webkit-mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
 #stage{width:1024px;transform-origin:0 0;position:relative;direction:ltr;background:linear-gradient(#f1f7fd,#e8f3fd 40%,#eef6fe 85%,#f4f9fd)}
 #stage [data-i18n],#stage [data-i18n-html]{unicode-bidi:plaintext}
